@@ -1,0 +1,69 @@
+import 'package:flutter/material.dart';
+import '../theme/app_theme.dart';
+
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 32),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              radius: 48,
+              backgroundColor: AppColors.roughCard,
+              child: Icon(Icons.person, size: 52, color: AppColors.primary),
+            ),
+            const SizedBox(height: 20),
+            Text('QA Tester',
+              style: const TextStyle(
+                fontSize: 24, fontWeight: FontWeight.w700,
+                color: AppColors.foreground),
+            ),
+            const SizedBox(height: 4),
+            Text('Manual QA Engineer',
+              style: TextStyle(
+                fontSize: 14, color: AppColors.secondary),
+            ),
+            const SizedBox(height: 32),
+            _ProfileInfoRow(icon: Icons.email, label: 'qa@fuzzi.dev'),
+            const SizedBox(height: 12),
+            _ProfileInfoRow(icon: Icons.calendar_today, label: 'Dołączył: czerwiec 2025'),
+            const SizedBox(height: 12),
+            _ProfileInfoRow(icon: Icons.star, label: 'Ranga: Senior Tester'),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ProfileInfoRow extends StatelessWidget {
+  final IconData icon;
+  final String label;
+
+  const _ProfileInfoRow({required this.icon, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      decoration: BoxDecoration(
+        color: AppColors.roughCard,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppColors.secondary.withValues(alpha: 0.15)),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, size: 20, color: AppColors.primary),
+          const SizedBox(width: 12),
+          Text(label,
+            style: const TextStyle(fontSize: 14, color: AppColors.foreground)),
+        ],
+      ),
+    );
+  }
+}
