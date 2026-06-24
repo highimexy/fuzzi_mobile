@@ -43,3 +43,23 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Firebase
+lib/firebase_options.dart
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Systemowe
+.DS_Store
+Thumbs.db
+
+# Logi i historia
+*.log
+.history/
+
+# Flutter/Dart cache dodatkowy
+.packages
+.flutter-plugins
