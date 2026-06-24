@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 
@@ -31,92 +32,56 @@ const _allTools = [
   ToolItem(title: 'Cache', category: 'Dev', icon: Icons.cached),
 ];
 
-class ToolsScreen extends StatefulWidget {
+class ToolsScreen extends StatelessWidget {
   const ToolsScreen({super.key});
 
   @override
-  State<ToolsScreen> createState() => _ToolsScreenState();
-}
-
-class _ToolsScreenState extends State<ToolsScreen>
-    with SingleTickerProviderStateMixin {
-  late final TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 4, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
       children: [
-        Material(
-          color: AppColors.roughCard,
-          child: TabBar(
-            controller: _tabController,
-            dividerColor: Colors.transparent,
-            tabs: const [
-              Tab(text: 'Wszystkie'),
-              Tab(text: 'UI/UX'),
-              Tab(text: 'Wideo'),
-              Tab(text: 'Dev'),
-            ],
+        Positioned(
+          top: -100,
+          left: -100,
+          child: Container(
+            width: 300,
+            height: 300,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: const Color(0xFF7a8a6e).withValues(alpha: 0.15),
+            ),
           ),
         ),
-        Expanded(
-          child: TabBarView(
-            controller: _tabController,
-            children: [
-              _buildGrid(0),
-              _buildGrid(1),
-              _buildGrid(2),
-              _buildGrid(3),
-            ],
+        Positioned(
+          bottom: -120,
+          right: -80,
+          child: Container(
+            width: 260,
+            height: 260,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: const Color(0xFFf5e642).withValues(alpha: 0.1),
+            ),
+          ),
+        ),
+        Positioned.fill(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 80, sigmaY: 80),
+            child: const SizedBox(),
+          ),
+        ),
+        SafeArea(
+          child: GridView.builder(
+            padding: const EdgeInsets.all(20),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+            ),
+            itemCount: _allTools.length,
+            itemBuilder: (context, index) => _ToolTile(tool: _allTools[index]),
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildGrid(int categoryIndex) {
-    List<ToolItem> tools;
-    switch (categoryIndex) {
-      case 0:
-        tools = _allTools;
-      case 1:
-        tools = _allTools.where((t) => t.category == 'UI/UX').toList();
-      case 2:
-        tools = _allTools.where((t) => t.category == 'Wideo').toList();
-      case 3:
-        tools = _allTools.where((t) => t.category == 'Dev').toList();
-      default:
-        tools = [];
-    }
-
-    if (tools.isEmpty) {
-      return Center(
-        child: Text('Brak narzędzi w tej kategorii',
-          style: TextStyle(color: AppColors.secondary)),
-      );
-    }
-
-    return GridView.builder(
-      padding: const EdgeInsets.all(12),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-      ),
-      itemCount: tools.length,
-      itemBuilder: (context, index) => _ToolTile(tool: tools[index]),
     );
   }
 }
