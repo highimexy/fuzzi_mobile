@@ -63,3 +63,6 @@ Thumbs.db
 # Flutter/Dart cache dodatkowy
 .packages
 .flutter-plugins
+
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
