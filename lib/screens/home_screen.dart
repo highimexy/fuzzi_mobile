@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../theme/app_theme.dart';
@@ -41,66 +40,32 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Positioned(
-          top: -100,
-          left: -100,
-          child: Container(
-            width: 300,
-            height: 300,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: const Color(0xFF7a8a6e).withValues(alpha: 0.15),
-            ),
+    return SafeArea(
+      child: SingleChildScrollView(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _GreetingSection(),
+          const SizedBox(height: 24),
+          _QaIllustration(),
+          const SizedBox(height: 28),
+          Text(
+            'Wczoraj w świecie QA',
+            style: GoogleFonts.getFont('Young Serif',
+              fontSize: 22, fontWeight: FontWeight.w700,
+              color: AppColors.foreground),
           ),
-        ),
-        Positioned(
-          bottom: -120,
-          right: -80,
-          child: Container(
-            width: 260,
-            height: 260,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: const Color(0xFFf5e642).withValues(alpha: 0.1),
-            ),
+          const SizedBox(height: 8),
+          Text(
+            'Najważniejsze wydarzenia z poprzedniego dnia',
+            style: TextStyle(fontSize: 13, color: AppColors.secondary),
           ),
-        ),
-        Positioned.fill(
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 80, sigmaY: 80),
-            child: const SizedBox(),
-          ),
-        ),
-        SafeArea(
-          child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _GreetingSection(),
-              const SizedBox(height: 24),
-              _QaIllustration(),
-              const SizedBox(height: 28),
-              Text(
-                'Wczoraj w świecie QA',
-                style: GoogleFonts.getFont('Young Serif',
-                  fontSize: 22, fontWeight: FontWeight.w700,
-                  color: AppColors.foreground),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'Najważniejsze wydarzenia z poprzedniego dnia',
-                style: TextStyle(fontSize: 13, color: AppColors.secondary),
-              ),
-              const SizedBox(height: 16),
-              ..._newsItems.map((news) => _NewsCard(news: news)),
-            ],
-          ),
-          ),
-        ),
-      ],
+          const SizedBox(height: 16),
+          ..._newsItems.map((news) => _NewsCard(news: news)),
+        ],
+      ),
+      ),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../widgets/morph_ring.dart';
 import '../widgets/fuzzi_mark.dart';
 
@@ -92,16 +93,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 40),
                   // Typografia
-                  const Text(
+                  Text(
                     'Fuzzi QA',
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 40, fontWeight: FontWeight.w800, letterSpacing: -1.5, color: Colors.white),
+                    style: GoogleFonts.getFont('Young Serif', fontSize: 40, fontWeight: FontWeight.w800, letterSpacing: -1.5, color: Colors.white),
                   ),
                   const SizedBox(height: 12),
                   Text(
                     'Narzędzia QA.\nSzybko. Bezboleśnie.',
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400, color: Colors.white.withOpacity(0.5), height: 1.3),
+                    style: GoogleFonts.inter(fontSize: 18, fontWeight: FontWeight.w400, color: Colors.white.withOpacity(0.5), height: 1.3),
                   ),
                   const Spacer(),
                   // Przycisk

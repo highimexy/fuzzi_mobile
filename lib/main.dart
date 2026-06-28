@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -86,13 +87,44 @@ class _MainScreenState extends State<MainScreen> {
       extendBody: true,
       body: Stack(
         children: [
-          // 1. Ekran główny - z dolnym paddingiem, żeby nie chował się pod paskiem
+          // Tło - rozmyte plamy
+          Positioned(
+            top: -100,
+            left: -100,
+            child: Container(
+              width: 300,
+              height: 300,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: const Color(0xFF7a8a6e).withValues(alpha: 0.15),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: -120,
+            right: -80,
+            child: Container(
+              width: 260,
+              height: 260,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: const Color(0xFFf5e642).withValues(alpha: 0.1),
+              ),
+            ),
+          ),
+          Positioned.fill(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 80, sigmaY: 80),
+              child: const SizedBox(),
+            ),
+          ),
+          // Ekran główny - z dolnym paddingiem, żeby nie chował się pod paskiem
           Padding(
             padding: const EdgeInsets.only(bottom: 80),
             child: _screens[_currentIndex],
           ),
 
-          // 2. Pływający Pasek Nawigacji (Custom Dock)
+          // Pływający Pasek Nawigacji (Custom Dock)
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
@@ -100,7 +132,7 @@ class _MainScreenState extends State<MainScreen> {
               child: Container(
                 height: 60,
                 decoration: BoxDecoration(
-                  color: const Color(0xFF1E1E1E).withOpacity(0.9),
+                  color: const Color(0xFF252d3b),
                   borderRadius: BorderRadius.circular(30),
                   border: Border.all(color: Colors.white.withOpacity(0.05)),
                 ),
